@@ -1,0 +1,57 @@
+nest.css #182
+.header-nav .nav
+text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+nest.css #232
+.header-title
+fontsize    28 -> 40
+
+nest.css #256
+.header-subtitle
+fontsize    14 -> 28
+
+
+nest.css #207
+.header-logo
+font-size: 15px?
+text-transform: uppercase?
+
+nest.css #73
+
+pre, code
+font-size: 16px -> 14px
+
+nest.css #371		(Indexseite erscheint recht karg. Oder Summary aufnehmen!?)
+.archive
+font-size: 20px
+
+
+nest.css #218
+.header-container
+min-height: 250px;		( statt 360px bisher. Angezeigt werden dann auf dem PC 314px )
+
+
+
+index.html
+--> das "|striptags" haut die HTML-Formattierung aus der Summary raus. Das bedeutet, dass
+    dann keine Header enthalten sind. Leider auch keine sinnvolleren Formatierungen wie
+    BOLD oder EMPH.
+--> durch "if loop.index <=" wird das Verwenden der Summary auf die ersten N Artikel begrenzt.
+
+{% block content %}
+    {% if DEFAULT_PAGINATION %}    
+    <div class="archive-container">
+        <div class="container content archive">
+...
+                {% for article in articles_page.object_list %}
+                    {% if loop.index <= 3 %}
+                        <dt>{{ article.locale_date}}</dt>
+                        <dd><p><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></p>
+                            <p>{{ article.summary|striptags }}</p>
+                        </dd>
+                    {% else %}
+                        <dt>{{ article.locale_date}}</dt>
+                        <dd><p><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></p>
+                        </dd>
+                    {% endif %}
+                {% endfor %}
